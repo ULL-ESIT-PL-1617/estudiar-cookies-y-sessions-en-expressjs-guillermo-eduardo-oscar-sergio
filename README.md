@@ -7,10 +7,10 @@ En esta práctica vamos a añadir al libro que hemos desplegado la semana pasada
 ---
 ## Links de nuestro libro (Falta por añadir)
 
-[GitBook]()
-[gh-pages]()
-[Heroku]()
-[IAAS]()
+* [GitBook]()
+* [gh-pages]()
+* [Heroku]()
+* [IAAS]()
 
 ---
 ## Integrantes del equipo
