@@ -319,7 +319,8 @@
                                 <h1 id="sessions-en-expressjs">Sessions en ExpressJS</h1>
 <p>Existen dos formas generales de implementar sesiones en Express: utilizar cookies y utilizar un almac&#xE9;n de sesiones en el backend. Ambos a&#xF1;aden un nuevo objeto en el objeto request denominado session, que contiene las variables de sesi&#xF3;n.</p>
 <p>No importa el m&#xE9;todo que utilice, Express proporciona una interfaz coherente para trabajar con los datos de la sesi&#xF3;n.</p>
-<h2 id="sesi&#xF3;n-basada-en-cookies">Sesi&#xF3;n basada en cookies</h2>
+<hr>
+<h3 id="sesi&#xF3;n-basada-en-cookies">Sesi&#xF3;n basada en cookies</h3>
 <p>Utilizando el hecho de que las cookies pueden almacenar datos en el navegador de los usuarios, se puede implementar una API de sesiones mediante cookies. Express viene con un middleware integrado llamado cookieSession, que hace precisamente eso.</p>
 <p>Cargue el middleware cookieParser con un secreto, seguido por el middleware cookieSession, antes del middleware del enrutador. El middleware cookieSession depende del cookieParser middlware porque utiliza una cookie para almacenar los datos de la sesi&#xF3;n.</p>
 <p>El middleware cookieParser debe inicializarse con un secreto, ya que cookieSession necesita generar una cookie HttpOnly firmada para almacenar los datos de la sesi&#xF3;n. Si no especifica un secreto para cookieParser, deber&#xE1; especificar la opci&#xF3;n secreta de cookieSsession.</p>
@@ -339,7 +340,8 @@ app.use(app.router);
   key: &apos;app.sess&apos;,
   secret: &apos;SUPERsekret&apos;
 }));
-</code></pre><h2 id="sesi&#xF3;n-basada-en-session-store">Sesi&#xF3;n basada en Session-store</h2>
+</code></pre><hr>
+<h3 id="sesi&#xF3;n-basada-en-session-store">Sesi&#xF3;n basada en Session-store</h3>
 <p>Una Session-store es una provisi&#xF3;n para almacenar datos de sesi&#xF3;n en el backend. Las sesiones basadas en almacenes de sesiones pueden almacenar una gran cantidad de datos que est&#xE1;n bien ocultos al usuario.</p>
 <p>El middleware de sesi&#xF3;n proporciona una forma de crear sesiones utilizando los almacenes de sesiones. Al igual que cookieSession, el middleware de sesi&#xF3;n depende del middleware cookieParser para crear una cookie HttpOnly firmada.</p>
 <p>Inicializar la sesi&#xF3;n middlware es mucho como inicializar cookieSession - primero cargar cookieParser con un secreto, y cargar el middleware de la sesi&#xF3;n, antes de que el middleware del enrutador.</p>
@@ -398,7 +400,7 @@ app.use(app.router);
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Capítulo 13: Las Sessions","level":"1.14","depth":1,"previous":{"title":"Capítulo 12: Las Cookies","level":"1.13","depth":1,"path":"book/cookies.md","ref":"book/cookies.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"book/sessions.md","mtime":"2017-03-14T18:29:39.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-14T19:30:02.939Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Capítulo 13: Las Sessions","level":"1.14","depth":1,"previous":{"title":"Capítulo 12: Las Cookies","level":"1.13","depth":1,"path":"book/cookies.md","ref":"book/cookies.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"book/sessions.md","mtime":"2017-03-14T19:41:23.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-14T21:29:18.639Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
