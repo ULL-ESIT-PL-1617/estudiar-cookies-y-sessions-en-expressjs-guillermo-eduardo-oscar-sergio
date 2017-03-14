@@ -111,3 +111,75 @@ En la directiva de la UE, se especifica que antes que guarde o distribuya inform
 
 Un uso más radical de las cookies son las **zombie cookies** o las **"Evercookies"** (Cookies para siempre). Éstas, son un tipo de cookie que se recre
 a de nuevo, una vez se ha eliminado y además se crean intencionadamente para que sean difíciles de borrar para siempre.
+
+---
+### Cookies en Javascript
+
+Las Cookies son una parte fundamental de las conexiones web a día de hoy, como bien ya hemos explicado, y por tanto están muy bien integradas con las aplicaciones Express que hemos ido viendo hasta ahora en prácticas anteriores. ¿Cómo se utilizan? Pues como en la mayoría de casos, mediante un paquete de NPM que facilita el manejo de objetos que abstraen las cookies al lenguaje Javascript. Nosotros vamos a ver dos módulos, aunque generalmente es el segundo el que más se utiliza.
+
+#### Módulo `cookie`
+
+Si lo que queremos es poder manejar un analizador y serializador de cookies básicas HTTP para servidores HTTP, podemos utilizar el módulo `cookie`. Se utiliza, como cualquier otro módulo, de la siguiente forma:
+
+```Javascript
+var cookie = require('cookie');
+```
+
+Cuando hacemos uso de este módulo, no es necesario hacer uso de Express, tan solo del protocolo HTTP. Sus dos métodos principales son los siguientes:
+
+* `cookie.parse(str, options)` devuelve un objeto _cookie_. Su argumento `str` es la representación en forma de String del valor de cabecera de una cookie, y `options` comprende una serie de parámetros que otorgan opciones adicionales de parseo.
+* `cookie.serialize(name, value, options)` serializa un par nombre - valor en una cadena de cabecera `Set-Cookie`. `name` es el nombre de la cookie, `value` es el valor de la misma y `options` comprende una serie de parámetros que otorgan opciones adicionales de parseo.
+
+
+#### Módulo `cookie-parser`
+
+Este módulo es mucho más utilizado en la práctica para el manejo de cookies, puesto que está diseñado para su implementación en aplicaciones Express. Se trata de un _middleware_ que parsea las cookies y las abstrae en un objeto Javascript.
+
+Para su uso, lo primero que hay que hacer es importar el módulo en la aplicación:
+
+```javascript
+var express = require('express');
+var cookieParser = require('cookie-parser');
+
+var app = express();
+app.use(cookieParser());
+```
+
+`Cookie-parser` parsea la cabecera de una cookie y define el atributo `req.cookies` con un objeto determinado por el nombre de las cookies. Para crear una nueva cookie, podemos definir una nueva ruta en nuestra aplicación Express de la siguiente manera:
+
+```javascript
+app.get('/cookie', function(req, res) {
+     res.cookie(cookie_name, 'cookie_value').send('Cookie is set');
+});
+```
+
+Se puede comprobar fácilmente si la cookie se ha creado o no, escribiendo `document.cookie` en la consola de desarrollador del navegador que estemos utilizando. El navegador se encarga por sí solo de enviar de nuevo estas cookies al servidor, no es algo de lo que tengamos que ocuparnos los desarrolladores. Sin embargo, se puede anclar la cookie específicamente en la cabecera de una petición, escribiendo el siguiente código:
+
+```javascript
+app.get('/', function(req, res) {
+  console.log("Cookies :  ", req.cookies);
+});
+```
+
+Podemos realizar otras muchas operaciones con este tipo de objetos. Podemos, por ejemplo, establecer una fecha de caducidad de la cookie, para que después de ese tiempo, el navegador elimine la cookie y no la envíe al servidor. Para esto utilizamos el método `cookie` con la opción `expire` o `maxAge`, como en el siguiente ejemplo:
+
+```javascript
+res.cookie(name , 'value', {expire : new Date() + 9999});
+res.cookie(name, 'value', {maxAge : 9999});
+```
+
+Por último, vamos a ver cómo eliminar una cookie. Este es un procedimiento muy simple, ya que existe un método llamado `clearCookie` que lleva a cabo precisamente esta función. Recibe como parámetro el nombre de la cookie, y por tanto basta con añadir la sentencia `clearCookie('cookie-monster')` para que la cookie con nombre _cookie-monster_ desaparezca. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
