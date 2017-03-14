@@ -65,7 +65,15 @@ Si se establece Path =/ docs, todos estos caminos coincidirán:
 "/Docs",
 "/Docs/Web/",
 "/Docs/Web/HTTP"
+---
+## Seguridad
 
+#### Secuestro de sesión y XSS
+
+Las cookies se utilizan a menudo en la aplicación web para identificar un usuario y su sesión autenticada. Así que robar una cookie de una aplicación web puede llevar a secuestrar la sesión del usuario autenticado. Las maneras comunes de robar cookies incluyen el uso de la ingeniería social o explotando una vulnerabilidad XSS en la aplicación.
+
+
+El atributo HttpOnly cookie puede ayudar a mitigar este ataque al impedir el acceso al valor de cookie a través de JavaScript.
 
 
 
