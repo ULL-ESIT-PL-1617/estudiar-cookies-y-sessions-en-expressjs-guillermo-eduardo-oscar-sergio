@@ -6,13 +6,18 @@ var app = express();
 app.use(cookieParser());
 
 app.get('/', function(req, res) {
-  console.log("Cookies :  ", req.cookies);
+     res.send("Visit localhost:3000/cookie");
+     console.log("Cookies :  ", req.cookies);
 });
 
 app.get('/cookie',function(req, res){
-     res.cookie(cookie_name , 'cookie_value').send('Cookie is set');
+     res.cookie(cookie_name , 'cookie_name').send('Cookie is set');
 });
 
+app.get('/clearcookie', function(req,res){
+     clearCookie('cookie_name');
+     res.send('Cookie deleted');
+});
 
 var server = app.listen(3000, function () {
 
