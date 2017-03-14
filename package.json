@@ -7,6 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
+    "clean": "rm -rf node_modules/gh-pages/.cache",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -35,6 +36,9 @@
   },
   "homepage": "https://github.com/ULL-ESIT-PL-1617/estudiar-cookies-y-sessions-en-expressjs-guillermo-eduardo-oscar-sergio#readme",
   "devDependencies": {
-    "gitbook-cli": "^0.3.6"
+    "gh-pages": "^0.12.0",
+    "gitbook-cli": "^0.3.6",
+    "gulp-gh-pages": "^0.5.4",
+    "shell-task": "^1.0.0"
   }
 }
