@@ -90,18 +90,25 @@ Ahora, si ha iniciado sesión en su cuenta bancaria y sus cookies siguen siendo 
 NOTA: La información confidencial o confidencial nunca debe ser almacenada o transmitida en cookies HTTP ya que el mecanismo completo es intrínsecamente inseguro.
 
 
+##Seguimiento y privacidad
 
+####Cookies de terceros
 
+Las cookies tienen un dominio asociado a ellas. Si estas en el mismo dominio que una determinada cookie, se dice qeu es una cookie de primera persona.Sin embargo, si el dominio es diferente, la cookie se referencia como una **cookie de terceros**. Las cookies de primera persona son las que se envían al servidor del dominio en el que estamos. Pero una página web, puede contener imágenes o elementos almacenados en servidores de otros dominios como un anuncio o banner. Las cookies que se envían a esos servidores externos son las llamadas cookies de terceros, y se usan principalmente para publicidad. La mayoría de los navegadores **permiten** las cookies de terceros por defecto, pero existen complementos para bloquearlas.
 
+####Do-Not-Track
 
+No hay requisitos legales para su uso, pero la cabecera HTTP Do-Not-Track p
+uede usarse para indicarle a una aplicación web que debe desactivar el paso
+ de nuestra a información a terceros
 
+####Directiva sobre cookies de la Unión Europea
 
+En la directiva de la UE, se especifica que antes que guarde o distribuya información de un ordenador, móvil u otro dispositivo, el usuario debe **dar su consentimiento**. Desde entonces casi todas las páginas web informan al
+ usuario sobre el uso de cookies.
 
+####Zombie cookies y "Evercookies"
 
+Un uso más radical de las cookies son las **zombie cookies** o las **"Evercookies"** (Cookies para siempre). Éstas, son un tipo de cookie que se recre
+a de nuevo, una vez se ha eliminado y además se crean intencionadamente para que sean difíciles de borrar para siempre.
 
-
-
-
-
-
- 
