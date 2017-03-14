@@ -62,9 +62,9 @@ Si se establece Domain = ull.org, las cookies se incluyen en subdominios como et
 
 Si se establece Path =/ docs, todos estos caminos coincidirán:
 
-"/Docs",
-"/Docs/Web/",
-"/Docs/Web/HTTP"
+* "/Docs",
+* "/Docs/Web/",
+* "/Docs/Web/HTTP"
 ---
 ## Seguridad
 
