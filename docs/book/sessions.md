@@ -33,3 +33,33 @@ app.use(express.cookieSession({
 }));
 ~~~
 
+
+## Sesión basada en Session-store
+
+Una Session-store es una provisión para almacenar datos de sesión en el backend. Las sesiones basadas en almacenes de sesiones pueden almacenar una gran cantidad de datos que están bien ocultos al usuario.
+
+El middleware de sesión proporciona una forma de crear sesiones utilizando los almacenes de sesiones. Al igual que cookieSession, el middleware de sesión depende del middleware cookieParser para crear una cookie HttpOnly firmada.
+
+Inicializar la sesión middlware es mucho como inicializar cookieSession - primero cargar cookieParser con un secreto, y cargar el middleware de la sesión, antes de que el middleware del enrutador.
+~~~
+app.use(express.cookieParser('S3CRE7'));
+app.use(express.session());
+app.use(app.router);
+~~~
+
+El middleware de sesión acepta un objeto de opciones que se puede utilizar para definir las opciones del middleware. Las siguientes son las opciones compatibles:
+
+* Key: Nombre de la cookie. Por defecto connect.sess.
+* secret: contraseña para firmar la sesión. Es requerido si CookieParser no se inicializa con uno.
+* cookie: Configuración de la cookie de sesión. Se aplican los valores predeterminados de las cookies.
+* proxy: Para confiar en el proxy inverso o no. El valor predeterminado es false.
+
+A continuación un ejemplo:
+~~~
+app.use(express.session({
+  key: 'app.sess',
+  store: new RedisStore,
+  secret: 'SEKR37'
+}));
+~~~
+
