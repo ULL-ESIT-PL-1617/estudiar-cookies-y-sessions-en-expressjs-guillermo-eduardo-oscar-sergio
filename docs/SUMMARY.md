@@ -3,7 +3,5 @@
 ### Capítulos
 
 * [Capítulo 0: Introduction](README.md)
-* [Capítulo 1: ]()
-* [Capítulo 2: ]()
-* [Capítulo 3: ]()
-* [Capítulo 4: ]()
+* [Capítulo 1: Las Cookies](book/cookies.md)
+* [Capítulo 2: Las Sessions](book/sessions.md)
