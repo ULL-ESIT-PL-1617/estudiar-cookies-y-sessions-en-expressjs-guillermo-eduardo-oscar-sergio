@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ULL-ESIT-PL-1617/estudiar-cookies-y-sessions-en-expressjs-guillermo-eduardo-oscar-sergio.git"
+    "url": "https://github.com/ULL-ESIT-PL-1617/estudiar-cookies-y-sessions-en-expressjs-guillermo-eduardo-oscar-sergio.git"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -27,11 +27,14 @@
     "gulp": "^3.9.1",
     "gulp-shell": "^0.6.3",
     "pbkdf2-password": "^1.2.1"
-},
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ULL-ESIT-PL-1617/estudiar-cookies-y-sessions-en-expressjs-guillermo-eduardo-oscar-sergio/issues"
   },
-  "homepage": "https://github.com/ULL-ESIT-PL-1617/estudiar-cookies-y-sessions-en-expressjs-guillermo-eduardo-oscar-sergio#readme"
+  "homepage": "https://github.com/ULL-ESIT-PL-1617/estudiar-cookies-y-sessions-en-expressjs-guillermo-eduardo-oscar-sergio#readme",
+  "devDependencies": {
+    "gitbook-cli": "^0.3.6"
+  }
 }
