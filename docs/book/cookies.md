@@ -68,13 +68,26 @@ Si se establece Path =/ docs, todos estos caminos coincidirán:
 ---
 ## Seguridad
 
-#### Secuestro de sesión y XSS
+### Secuestro de sesión y XSS
 
 Las cookies se utilizan a menudo en la aplicación web para identificar un usuario y su sesión autenticada. Así que robar una cookie de una aplicación web puede llevar a secuestrar la sesión del usuario autenticado. Las maneras comunes de robar cookies incluyen el uso de la ingeniería social o explotando una vulnerabilidad XSS en la aplicación.
 
 
 El atributo HttpOnly cookie puede ayudar a mitigar este ataque al impedir el acceso al valor de cookie a través de JavaScript.
 
+### Falsificación de peticiones entre sitios (CSRF)
+
+Hay veces que por ejemplo alguien incluye una imagen que no es realmente una imagen (por ejemplo, en un foro o foro no filtrado), en su lugar es realmente una solicitud al servidor de su banco para retirar dinero:
+~~~
+<Img src = "http://bank.example.com/withdraw?account=bob&amount=1000000&for=mallory">
+~~~
+Ahora, si ha iniciado sesión en su cuenta bancaria y sus cookies siguen siendo válidas (y no hay ninguna otra validación), transferirá dinero tan pronto como cargue el HTML que contiene esta imagen. Hay algunas técnicas que se utilizan para evitar que esto suceda:
+* Al igual que con XSS, el filtrado de entrada es importante.
+* Siempre debe haber una confirmación requerida para cualquier acción sensible.
+* Las cookies que se utilizan para acciones sensibles deben tener una vida útil corta.
+* Para obtener más consejos de prevención, consulte la hoja de trucos de prevención [OWASP CSRF](https://www.owasp.org/).
+
+NOTA: La información confidencial o confidencial nunca debe ser almacenada o transmitida en cookies HTTP ya que el mecanismo completo es intrínsecamente inseguro.
 
 
 
