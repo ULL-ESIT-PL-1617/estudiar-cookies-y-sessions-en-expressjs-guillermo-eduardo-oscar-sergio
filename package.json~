@@ -2,7 +2,7 @@
   "name": "estudiar-cookies-y-sessions-en-expressjs-guillermo-eduardo-oscar-sergio",
   "version": "1.0.0",
   "description": "## Descripción",
-  "main": "app.js",
+  "main": "index.js",
   "directories": {
     "doc": "docs"
   },
