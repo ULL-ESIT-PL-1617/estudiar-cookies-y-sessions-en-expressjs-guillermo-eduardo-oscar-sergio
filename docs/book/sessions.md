@@ -11,7 +11,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
- 
+
 // Authentication and Authorization Middleware
 var auth = function(req, res, next) {
   if (req.session && req.session.user === "amy" && req.session.admin)
@@ -19,7 +19,7 @@ var auth = function(req, res, next) {
   else
     return res.sendStatus(401);
 };
- 
+
 // Login endpoint
 app.get('/login', function (req, res) {
   if (!req.query.username || !req.query.password) {
@@ -30,18 +30,18 @@ app.get('/login', function (req, res) {
     res.send("login success!");
   }
 });
- 
+
 // Logout endpoint
 app.get('/logout', function (req, res) {
   req.session.destroy();
   res.send("logout success!");
 });
- 
+
 // Get content endpoint
 app.get('/content', auth, function (req, res) {
     res.send("You can only see this after you've logged in.");
 });
- 
+
 app.listen(3000);
 console.log("app running at http://localhost:3000");
 ```
@@ -69,9 +69,19 @@ app.use(session({
 }));
 ```
 
- 
+Importamos los modulos express y express-session. Creamos una aplicación express a la cual le añadimos nuesto middleware session.
 
-Importamos los modulos express y express-session. Creamos una aplicación express a la cual le añadimos nuesto middleware session
+```
+// Authentication and Authorization Middleware
+var auth = function(req, res, next) {
+  if (req.session && req.session.user === "amy" && req.session.admin)
+    return next();
+  else
+    return res.sendStatus(401);
+};
+```
+
+Pasamos al siguiente paso si el usuario es Amy y si ella tiene el acceso de administrado. En este caso por simplicidad y comprensión del lector, hemos establecido que el usuario tiene que ser amy, en una aplicación real los datos de session serían comparados  con los usuarios de una base de datos de la aplicación.
 
 ---
 
