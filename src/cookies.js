@@ -11,7 +11,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/cookie',function(req, res) {
-     res.cookie(cookie_name, 'cookie_name').send('Cookie is set');
+     res.cookie('cookie_name', 'cookie_name').send('Cookie is set');
 });
 
 app.get('/clearcookie', function(req,res) {
