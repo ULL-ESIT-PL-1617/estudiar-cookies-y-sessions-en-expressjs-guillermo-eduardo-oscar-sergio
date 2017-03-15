@@ -32,9 +32,9 @@ app.get('/logout', function (req, res) {
   res.send("logout success!");
 });
 
-app.get('/'){
+app.get('/',function(req,res){
    res.send("accede a la siguiente <a  href="localhost:3000/login?username=amy&password=amyspassword">url</a>");
-}
+});
 
 // Get content endpoint
 app.get('/content', auth, function (req, res) {
