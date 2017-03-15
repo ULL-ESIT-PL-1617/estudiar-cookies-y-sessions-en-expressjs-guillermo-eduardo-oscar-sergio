@@ -118,9 +118,7 @@ app.get('/logout', function (req, res) {
 });
 ```
 
-puta
-
----
+hacemos el logout 'destruyendo' la sesión
 
 Existen dos formas generales de implementar sesiones en Express: utilizar cookies y utilizar un almacén de sesiones en el backend. Ambos añaden un nuevo objeto en el objeto request denominado session, que contiene las variables de sesión.
 
