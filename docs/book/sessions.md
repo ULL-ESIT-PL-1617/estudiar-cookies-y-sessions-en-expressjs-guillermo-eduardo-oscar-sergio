@@ -99,7 +99,7 @@ app.get('/login', function (req, res) {
 });
 ```
 
-**localhost: 3000 / iniciar sesión nombre de usuario y contraseña amy == amyspassword?**, la URL de inicio de sesión para comprobar el usuario inicie sesión en guardando el nivel de acceso del usuario y usuario en una sesión.
+**localhost:3000/login?username=amy&password=amyspassword**, la URL de inicio de sesión para comprobar el usuario inicie sesión en guardando el nivel de acceso del usuario y usuario en una sesión.
 
 La sesión será diferente para cada usuario, y también sera única para el mismo usuario utilizando diferentes navegadores.
 
