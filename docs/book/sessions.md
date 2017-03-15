@@ -2,6 +2,79 @@
 
 En primer lugar, a modo de introducción debemos de conocer brevemente los terminos de autenticación y autorización. Autenticación es el proceso de verificar si el usuario es el mismo que el declara ser. Autorización es el proceso de determinar si un usuario tiene los privilegios para acceder a un cierto recurso al que ha solicitado acceder. A continuación mostraremos un pequeño fragmento de código Node.js en el que se ilustra de una manera muy simple el proceso de autenticación y autorización mediante sesiones de express.js. Como era de esperar, hay un punto de inicio de sesión, un punto de cierre de sesión. Para ver la página que está posteada debemos autetinficarnos previamente, de esta forma nuestra identidad será verificada y guardada durante la sesión. Cuando cerremos la sesión lo que se producirá internamente es un borrado de nuestra identidad en dicha sesión.
 
+```js
+var express = require('express'),
+    app = express(),
+    session = require('express-session');
+app.use(session({
+    secret: '2C44-4D44-WppQ38S',
+    resave: true,
+    saveUninitialized: true
+}));
+ 
+// Authentication and Authorization Middleware
+var auth = function(req, res, next) {
+  if (req.session && req.session.user === "amy" && req.session.admin)
+    return next();
+  else
+    return res.sendStatus(401);
+};
+ 
+// Login endpoint
+app.get('/login', function (req, res) {
+  if (!req.query.username || !req.query.password) {
+    res.send('login failed');    
+  } else if(req.query.username === "amy" || req.query.password === "amyspassword") {
+    req.session.user = "amy";
+    req.session.admin = true;
+    res.send("login success!");
+  }
+});
+ 
+// Logout endpoint
+app.get('/logout', function (req, res) {
+  req.session.destroy();
+  res.send("logout success!");
+});
+ 
+// Get content endpoint
+app.get('/content', auth, function (req, res) {
+    res.send("You can only see this after you've logged in.");
+});
+ 
+app.listen(3000);
+console.log("app running at http://localhost:3000");
+```
+
+Este código se encuentra en la carpeta /src.
+
+Para poder poner en funcionamiento el código desde la linea de comando tendrems que instalar algunas dependencias.
+
+```
+npm install express
+npm install express-session
+node session_auth.js &
+```
+
+### Explicación del código
+
+```
+var express = require('express'),
+    app = express(),
+    session = require('express-session');
+app.use(session({
+    secret: '2C44-4D44-WppQ38S',
+    resave: true,
+    saveUninitialized: true
+}));
+```
+
+ 
+
+Importamos los modulos express y express-session. Creamos una aplicación express a la cual le añadimos nuesto middleware session
+
+---
+
 Existen dos formas generales de implementar sesiones en Express: utilizar cookies y utilizar un almacén de sesiones en el backend. Ambos añaden un nuevo objeto en el objeto request denominado session, que contiene las variables de sesión.
 
 No importa el método que utilice, Express proporciona una interfaz coherente para trabajar con los datos de la sesión.
