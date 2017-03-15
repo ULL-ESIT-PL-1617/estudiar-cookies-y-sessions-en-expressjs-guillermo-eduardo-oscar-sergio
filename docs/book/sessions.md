@@ -83,6 +83,43 @@ var auth = function(req, res, next) {
 
 Pasamos al siguiente paso si el usuario es Amy y si ella tiene el acceso de administrado. En este caso por simplicidad y comprensión del lector, hemos establecido que el usuario tiene que ser amy, en una aplicación real los datos de session serían comparados  con los usuarios de una base de datos de la aplicación.
 
+```
+// Login endpoint
+app.get('/login', function (req, res) {
+  if (!req.query.username || !req.query.password) {
+    res.send('login failed');    
+  } else if(req.query.username === "amy" || req.query.password === "amyspassword") {
+    req.session.user = "amy";
+    req.session.admin = true;
+    res.send("login success!");
+  }
+});
+```
+
+**localhost: 3000 / iniciar sesión nombre de usuario y contraseña amy == amyspassword?**, la URL de inicio de sesión para comprobar el usuario inicie sesión en guardando el nivel de acceso del usuario y usuario en una sesión.
+
+La sesión será diferente para cada usuario, y también sera única para el mismo usuario utilizando diferentes navegadores.
+
+Por ejemplo, si el mismo usuario ha iniciado sesión en  Chrome, y el abrir Firefox, el usuario tendrá que volver a iniciar sesión en Firefox con el fin de obtener los recursos protegidos.
+
+Para fines de demostración, se trata de una petición de obtención y de cruce en la información a través de los parámetros de consulta.
+
+Una aplicación web real, por lo general se usa una solicitud posterior y pasando los datos en el formulario de envío.
+
+Una vez más el usuario y las contraseñas están codificados aquí con fines de demostración.
+
+Una aplicación web real, se compruebe que el usuario y la contraseña de entrada contra el usuario y la contraseña almacenada en una base de datos de la existencia del servidor.
+
+```
+// Logout endpoint
+app.get('/logout', function (req, res) {
+  req.session.destroy();
+  res.send("logout success!");
+});
+```
+
+puta
+
 ---
 
 Existen dos formas generales de implementar sesiones en Express: utilizar cookies y utilizar un almacén de sesiones en el backend. Ambos añaden un nuevo objeto en el objeto request denominado session, que contiene las variables de sesión.
