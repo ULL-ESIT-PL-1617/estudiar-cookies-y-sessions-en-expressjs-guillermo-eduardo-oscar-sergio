@@ -3,18 +3,9 @@ var escapeHtml = require('escape-html');
 var http = require('http');
 var url = require('url');
 
-var form = '
-<form method="GET">
-  <input placeholder="Enter your name" name="name">
-  <input type="submit" value="Set Name">
-</form>
-';
-
 function onRequest(req, res) {
-  console.log(req.url);
   // Parse the query string
   var query = url.parse(req.url, true, true).query;
-  console.log(query);
 
   if (query && query.name) {
     // Set a new cookie with the name
@@ -39,13 +30,14 @@ function onRequest(req, res) {
   res.setHeader('Content-Type', 'text/html; charset=UTF-8');
 
   if (name) {
-    res.write('<p>Welcome back, <b> ${escapeHtml(name)} </b>!</p>');
+    res.write('<p>Welcome back, <b>' + escapeHtml(name) + '</b>!</p>');
   } else {
     res.write('<p>Hello, new visitor!</p>');
   }
 
-  res.write(form);
-  res.end();
+  res.write('<form method="GET">');
+  res.write('<input placeholder="enter your name" name="name"> <input type="submit" value="Set Name">');
+  res.end('</form');
 }
 
 http.createServer(onRequest).listen(3000);

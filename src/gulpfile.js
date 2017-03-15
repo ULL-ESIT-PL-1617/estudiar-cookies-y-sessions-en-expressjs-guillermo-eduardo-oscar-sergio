@@ -35,10 +35,17 @@ gulp.task('deploy-gitbook', function() {
 });
 
 
-// Tarea que ejecuta los ejemplos que muestran el funcionamiento de las Cookies
+// Tarea que ejecuta los ejemplos que muestran el funcionamiento de las Cookies en Express
 gulp.task('CookieExample', function() {
     return gulp.src('')
         .pipe(shell(['node cookies.js']));
+});
+
+
+// Tarea que ejecuta los ejemplos que muestran el funcionamiento de las cookies básicas HTTP
+gulp.task('cookie-module-test', function() {
+    return gulp.src('')
+        .pipe(shell(['node cookieModule.js']));
 });
 
 
