@@ -23,6 +23,12 @@ gulp.task('deploy-gh-pages', ['build'], function() {
     });
 });
 
+// Despligue en Heroku
+gulp.task('deploy-heroku', ['build'], function() {
+    return gulp.src('')
+	.pipe(shell(['git push --force heroku master:master',
+	'heroku open']));
+});
 
 // Despliegue del libro en GitBook
 gulp.task('deploy-gitbook', function() {
