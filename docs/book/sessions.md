@@ -120,7 +120,14 @@ app.get('/logout', function (req, res) {
 
 hacemos el logout 'destruyendo' la sesión
 
+```
+// Get content endpoint
+app.get('/content', auth, function (req, res) {
+    res.send("You can only see this after you've logged in.");
+});
+```
 
+pasamos la autenticación como segundo parametro, en caso de que la autenticación no sea valida no se llamará  a la callback por lo tanto esto solo funciona si estamos logueados.
 
 Existen dos formas generales de implementar sesiones en Express: utilizar cookies y utilizar un almacén de sesiones en el backend. Ambos añaden un nuevo objeto en el objeto request denominado session, que contiene las variables de sesión.
 
