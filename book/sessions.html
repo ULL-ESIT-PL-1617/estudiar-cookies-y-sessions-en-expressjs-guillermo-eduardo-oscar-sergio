@@ -316,7 +316,103 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="sessions-en-expressjs">Sessions en ExpressJS</h1>
+                                <hr>
+<h1 id="sessions-en-expressjs">Sessions en ExpressJS</h1>
+<p>En primer lugar, a modo de introducci&#xF3;n debemos de conocer brevemente los terminos de autenticaci&#xF3;n y autorizaci&#xF3;n. Autenticaci&#xF3;n es el proceso de verificar si el usuario es el mismo que el declara ser. Autorizaci&#xF3;n es el proceso de determinar si un usuario tiene los privilegios para acceder a un cierto recurso al que ha solicitado acceder. A continuaci&#xF3;n mostraremos un peque&#xF1;o fragmento de c&#xF3;digo Node.js en el que se ilustra de una manera muy simple el proceso de autenticaci&#xF3;n y autorizaci&#xF3;n mediante sesiones de express.js. Como era de esperar, hay un punto de inicio de sesi&#xF3;n, un punto de cierre de sesi&#xF3;n. Para ver la p&#xE1;gina que est&#xE1; posteada debemos autetinficarnos previamente, de esta forma nuestra identidad ser&#xE1; verificada y guardada durante la sesi&#xF3;n. Cuando cerremos la sesi&#xF3;n lo que se producir&#xE1; internamente es un borrado de nuestra identidad en dicha sesi&#xF3;n.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;express&apos;</span>),
+    app = express(),
+    session = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;express-session&apos;</span>);
+app.use(session({
+    secret: <span class="hljs-string">&apos;2C44-4D44-WppQ38S&apos;</span>,
+    resave: <span class="hljs-literal">true</span>,
+    saveUninitialized: <span class="hljs-literal">true</span>
+}));
+
+<span class="hljs-comment">// Authentication and Authorization Middleware</span>
+<span class="hljs-keyword">var</span> auth = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) </span>{
+  <span class="hljs-keyword">if</span> (req.session &amp;&amp; req.session.user === <span class="hljs-string">&quot;amy&quot;</span> &amp;&amp; req.session.admin)
+    <span class="hljs-keyword">return</span> next();
+  <span class="hljs-keyword">else</span>
+    <span class="hljs-keyword">return</span> res.sendStatus(<span class="hljs-number">401</span>);
+};
+
+<span class="hljs-comment">// Login endpoint</span>
+app.get(<span class="hljs-string">&apos;/login&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">if</span> (!req.query.username || !req.query.password) {
+    res.send(<span class="hljs-string">&apos;login failed&apos;</span>);    
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(req.query.username === <span class="hljs-string">&quot;amy&quot;</span> || req.query.password === <span class="hljs-string">&quot;amyspassword&quot;</span>) {
+    req.session.user = <span class="hljs-string">&quot;amy&quot;</span>;
+    req.session.admin = <span class="hljs-literal">true</span>;
+    res.send(<span class="hljs-string">&quot;login success!&quot;</span>);
+  }
+});
+
+<span class="hljs-comment">// Logout endpoint</span>
+app.get(<span class="hljs-string">&apos;/logout&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  req.session.destroy();
+  res.send(<span class="hljs-string">&quot;logout success!&quot;</span>);
+});
+
+<span class="hljs-comment">// Get content endpoint</span>
+app.get(<span class="hljs-string">&apos;/content&apos;</span>, auth, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+    res.send(<span class="hljs-string">&quot;You can only see this after you&apos;ve logged in.&quot;</span>);
+});
+
+app.listen(<span class="hljs-number">3000</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;app running at http://localhost:3000&quot;</span>);
+</code></pre>
+<p>Este c&#xF3;digo se encuentra en la carpeta /src.</p>
+<p>Para poder poner en funcionamiento el c&#xF3;digo desde la linea de comando tendrems que instalar algunas dependencias.</p>
+<pre><code>npm install express
+npm install express-session
+node session_auth.js &amp;
+</code></pre><h3 id="explicaci&#xF3;n-del-c&#xF3;digo">Explicaci&#xF3;n del c&#xF3;digo</h3>
+<pre><code>var express = require(&apos;express&apos;),
+    app = express(),
+    session = require(&apos;express-session&apos;);
+app.use(session({
+    secret: &apos;2C44-4D44-WppQ38S&apos;,
+    resave: true,
+    saveUninitialized: true
+}));
+</code></pre><p>Importamos los modulos express y express-session. Creamos una aplicaci&#xF3;n express a la cual le a&#xF1;adimos nuesto middleware session.</p>
+<pre><code>// Authentication and Authorization Middleware
+var auth = function(req, res, next) {
+  if (req.session &amp;&amp; req.session.user === &quot;amy&quot; &amp;&amp; req.session.admin)
+    return next();
+  else
+    return res.sendStatus(401);
+};
+</code></pre><p>Pasamos al siguiente paso si el usuario es Amy y si ella tiene el acceso de administrado. En este caso por simplicidad y comprensi&#xF3;n del lector, hemos establecido que el usuario tiene que ser amy, en una aplicaci&#xF3;n real los datos de session ser&#xED;an comparados  con los usuarios de una base de datos de la aplicaci&#xF3;n.</p>
+<pre><code>// Login endpoint
+app.get(&apos;/login&apos;, function (req, res) {
+  if (!req.query.username || !req.query.password) {
+    res.send(&apos;login failed&apos;);    
+  } else if(req.query.username === &quot;amy&quot; || req.query.password === &quot;amyspassword&quot;) {
+    req.session.user = &quot;amy&quot;;
+    req.session.admin = true;
+    res.send(&quot;login success!&quot;);
+  }
+});
+</code></pre><p><strong>localhost:3000/login?username=amy&amp;password=amyspassword</strong>, la URL de inicio de sesi&#xF3;n para comprobar el usuario inicie sesi&#xF3;n en guardando el nivel de acceso del usuario y usuario en una sesi&#xF3;n.</p>
+<p>La sesi&#xF3;n ser&#xE1; diferente para cada usuario, y tambi&#xE9;n sera &#xFA;nica para el mismo usuario utilizando diferentes navegadores.</p>
+<p>Por ejemplo, si el mismo usuario ha iniciado sesi&#xF3;n en  Chrome, y el abrir Firefox, el usuario tendr&#xE1; que volver a iniciar sesi&#xF3;n en Firefox con el fin de obtener los recursos protegidos.</p>
+<p>Para fines de demostraci&#xF3;n, se trata de una petici&#xF3;n de obtenci&#xF3;n y de cruce en la informaci&#xF3;n a trav&#xE9;s de los par&#xE1;metros de consulta.</p>
+<p>Una aplicaci&#xF3;n web real, por lo general se usa una solicitud posterior y pasando los datos en el formulario de env&#xED;o.</p>
+<p>Una vez m&#xE1;s el usuario y las contrase&#xF1;as est&#xE1;n codificados aqu&#xED; con fines de demostraci&#xF3;n.</p>
+<p>Una aplicaci&#xF3;n web real, se compruebe que el usuario y la contrase&#xF1;a de entrada contra el usuario y la contrase&#xF1;a almacenada en una base de datos de la existencia del servidor.</p>
+<pre><code>// Logout endpoint
+app.get(&apos;/logout&apos;, function (req, res) {
+  req.session.destroy();
+  res.send(&quot;logout success!&quot;);
+});
+</code></pre><p>hacemos el logout &apos;destruyendo&apos; la sesi&#xF3;n</p>
+<pre><code>// Get content endpoint
+app.get(&apos;/content&apos;, auth, function (req, res) {
+    res.send(&quot;You can only see this after you&apos;ve logged in.&quot;);
+});
+</code></pre><p>pasamos la autenticaci&#xF3;n como segundo parametro, en caso de que la autenticaci&#xF3;n no sea valida no se llamar&#xE1;  a la callback por lo tanto esto solo funciona si estamos logueados.</p>
+<hr>
 <p>Existen dos formas generales de implementar sesiones en Express: utilizar cookies y utilizar un almac&#xE9;n de sesiones en el backend. Ambos a&#xF1;aden un nuevo objeto en el objeto request denominado session, que contiene las variables de sesi&#xF3;n.</p>
 <p>No importa el m&#xE9;todo que utilice, Express proporciona una interfaz coherente para trabajar con los datos de la sesi&#xF3;n.</p>
 <hr>
@@ -400,7 +496,7 @@ app.use(app.router);
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Capítulo 13: Las Sessions","level":"1.14","depth":1,"previous":{"title":"Capítulo 12: Las Cookies","level":"1.13","depth":1,"path":"book/cookies.md","ref":"book/cookies.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"book/sessions.md","mtime":"2017-03-14T19:41:23.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-14T21:29:18.639Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Capítulo 13: Las Sessions","level":"1.14","depth":1,"previous":{"title":"Capítulo 12: Las Cookies","level":"1.13","depth":1,"path":"book/cookies.md","ref":"book/cookies.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"book/sessions.md","mtime":"2017-03-15T18:22:26.902Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-15T18:28:19.001Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
