@@ -32,6 +32,10 @@ app.get('/logout', function (req, res) {
   res.send("logout success!");
 });
 
+app.get('/'){
+   res.send("accede a la siguiente <a  href="localhost:3000/login?username=amy&password=amyspassword">url</a>");
+}
+
 // Get content endpoint
 app.get('/content', auth, function (req, res) {
     res.send("You can only see this after you've logged in.");
