@@ -1,6 +1,6 @@
 # Sessions en ExpressJS
 
-En primer lugar, a modo de introducción debemos de conocer brevemente los terminos de autenticación y autorización. Autenticación es el proceso de verificar si el usuario es el mismo que el declara ser. Autorización es el proceso de determinar si un usuari tiene los privilegios para acceder a un cierto recurso al que ha solicitado acceder.
+En primer lugar, a modo de introducción debemos de conocer brevemente los terminos de autenticación y autorización. Autenticación es el proceso de verificar si el usuario es el mismo que el declara ser. Autorización es el proceso de determinar si un usuario tiene los privilegios para acceder a un cierto recurso al que ha solicitado acceder. A continuación mostraremos un pequeño fragmento de código Node.js en el que se ilustra de una manera muy simple el proceso de autenticación y autorización mediante sesiones de express.js. Como era de esperar, hay un punto de inicio de sesión, un punto de cierre de sesión. Para ver la página que está posteada debemos autetinficarnos previamente, de esta forma nuestra identidad será verificada y guardada durante la sesión. Cuando cerremos la sesión lo que se producirá internamente es un borrado de nuestra identidad en dicha sesión.
 
 Existen dos formas generales de implementar sesiones en Express: utilizar cookies y utilizar un almacén de sesiones en el backend. Ambos añaden un nuevo objeto en el objeto request denominado session, que contiene las variables de sesión.
 
