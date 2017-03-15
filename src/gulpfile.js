@@ -48,6 +48,11 @@ gulp.task('cookie-module-test', function() {
         .pipe(shell(['node cookieModule.js']));
 });
 
+// Tarea que ejecuta los ejemplos que muestran el funcionamiento de las cookies de session
+gulp.task('cookie-session', function() {
+    return gulp.src('')
+        .pipe(shell(['node session_auth.js']));
+});
 
 
 
