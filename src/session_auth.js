@@ -33,7 +33,7 @@ app.get('/logout', function (req, res) {
 });
 
 app.get('/',function(req,res){
-   res.send("accede a la siguiente <a  href="localhost:3000/login?username=amy&password=amyspassword">url</a>");
+   res.send("accede a la siguiente url para loguearte --> localhost:3000/login?username=amy&password=amyspassword");
 });
 
 // Get content endpoint
