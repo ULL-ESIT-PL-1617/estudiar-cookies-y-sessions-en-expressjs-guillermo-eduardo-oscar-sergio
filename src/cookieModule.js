@@ -8,7 +8,7 @@ function onRequest(req, res) {
   var query = url.parse(req.url, true, true).query;
 
   if (query && query.name) {
-    // Set a new cookie with the name
+    // Set a new cookie with the name = 'name'
     res.setHeader('Set-Cookie', cookie.serialize('name', String(query.name), {
       httpOnly: true,
       maxAge: 60 * 60 * 24 * 7 // 1 week
@@ -29,6 +29,7 @@ function onRequest(req, res) {
 
   res.setHeader('Content-Type', 'text/html; charset=UTF-8');
 
+  // if name is defined, then show it
   if (name) {
     res.write('<p>Welcome back, <b>' + escapeHtml(name) + '</b>!</p>');
   } else {
@@ -40,4 +41,5 @@ function onRequest(req, res) {
   res.end('</form');
 }
 
+// Listen for requests at port 3000
 http.createServer(onRequest).listen(3000);
